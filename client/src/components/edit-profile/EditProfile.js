@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 import TextFieldGroup from './../common/TextFieldGroup';
 import TextAreaFieldGroup from './../common/TextAreaFieldGroup';
@@ -38,7 +38,7 @@ class CreateProfile extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
-      this.setState({errors: nextProps.errors});
+      this.setState({ errors: nextProps.errors });
     }
 
     if (nextProps.profile.profile) {
@@ -81,7 +81,7 @@ class CreateProfile extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    
+
     const profileData = {
       handle: this.state.handle,
       company: this.state.company,
@@ -102,7 +102,7 @@ class CreateProfile extends Component {
   }
 
   onChange = (e) => {
-    this.setState({[e.target.name]: e.target.value});
+    this.setState({ [e.target.name]: e.target.value });
   }
 
   render() {
@@ -202,8 +202,11 @@ class CreateProfile extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
+              <Link to="/dashboard" className="btn btn-light">
+                Go Back
+              </Link>
               <h1 className="display-4 text-center">
-                Edit Profile 
+                Edit Profile
               </h1>
               <small className="d-block pb-3">
                 * = required fields
@@ -278,7 +281,7 @@ class CreateProfile extends Component {
                   <button
                     type="button"
                     className="btn btn-light"
-                    onClick={() =>  {
+                    onClick={() => {
                       this.setState(prevState => ({
                         displaySocialInputs: !prevState.displaySocialInputs
                       }));
@@ -289,7 +292,7 @@ class CreateProfile extends Component {
                   <span className="text-muted">Optional</span>
                 </div>
                 {socialInputs}
-                <input type="submit" value="Submit" className="btn btn-info btn-block mt-4"/>
+                <input type="submit" value="Submit" className="btn btn-info btn-block mt-4" />
               </form>
             </div>
           </div>
@@ -306,9 +309,9 @@ CreateProfile.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
 }
 
-const mapStateToProps =  state => ({
+const mapStateToProps = state => ({
   profile: state.profile,
   errors: state.errors
 });
 
-export default connect(mapStateToProps, {createProfile, getCurrentProfile})(withRouter(CreateProfile));
+export default connect(mapStateToProps, { createProfile, getCurrentProfile })(withRouter(CreateProfile));
